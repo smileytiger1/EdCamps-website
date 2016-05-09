@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+<meta charset="utf-8"/>
+<title>Animal Quiz</title>
+<!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/grayscale.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<style>
+
+	#questionDiv {
+		background-color:black;
+		color: white;
+		height:400px;
+		width:900px;
+		margin:auto;
+		padding:10px;
+		position:relative;
+	}
+	#nextTopic {
+		position:absolute;
+		bottom:5px;
+		right:5px;
+		background-color:#1d9b6c;
+	}
+	#inputBox{
+		position:absolute;      
+		left:80px;
+		top:170px; 
+		color:black; 
+	}
+	#nextQuestion{
+		position:absolute;
+		bottom:5px;
+		left:5px;
+		background-color:#1d9b6c;
+	}
+	#reveal{ 
+		top:310px;
+		right:410px;
+		font-size: 20px;
+		color: #1d9b6c;
+		text-align: center;
+	}
+	#subject {
+		text-align: center;
+		color: white;
+	}
+			ul{
+			list-style-type:none;
+			margin:0;
+			padding:0;
+			overflow: hidden;
+			background-color: Black;
+		}
+		li span{
+			float:left;
+			display: block;
+			color: white;
+			text-align:center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+		li span:hover{
+			background-color: #333;
+		}
+		li a{
+			color: white;
+			text-decoration: none;
+		}
+</style>
+<script src="data.js"></script>
+<script>
+var topic = "Animal Kingdom"; 
+var score;
+var i;
+//var usedTopics = []; 
+var index;
+var counter = 0; 
+var totalScore = 0;
+ 
+function showQuestion(){
+	if(counter == 0) {
+		index = Math.floor(Math.random()*4);
+	}
+	else {
+		index++; 
+		if(index == animals.length) {
+			index = 0;
+		}
+	}
+	if(counter == animals.length) {
+		document.getElementById("questionDiv").style.visibility = "hidden";
+		document.getElementById("subject").style.visibility = "visible";
+		document.getElementById("subject").innerHTML = "You used up all the topics - your total score is " + totalScore + "! <br/> Refresh page to play again.";
+		document.getElementById("topicImg").style.visibility = "visible";
+		document.getElementById("topicImg").src = "tumblr_mf7j0c0xhi1rntezlo1_400.gif"; 
+		document.getElementById("nextTopic").style.visibility = "hidden"; 
+		document.getElementById("nextQuestion").style.visibility = "hidden";
+		return; 
+	}                                                        
+	counter++; 
+	score=0;
+	i = 0;
+	document.getElementById("topicImg").src = animals[index].image;
+	document.getElementById("questionDiv").style.visibility = "visible";
+	document.getElementById("guess").value = "";
+	document.getElementById("subject").innerHTML = animals[index].topic; 
+	document.getElementById("start").style.visibility="hidden";  
+	document.getElementById("nextQuestion").style.visibility="visible";
+	document.getElementById("question").innerHTML = animals[index].questions[i].quest;   
+	document.getElementById("nextTopic").style.visibility="visible";  
+	document.getElementById("reveal").style.visibility = "hidden";      
+			
+}
+function nextQuestion(){ 
+		// Show the next question on the current topic
+		checkAnswer(); 
+		i++; 
+		if(i == animals[index].questions.length) {    
+			endTopic();   
+		}
+		else {
+			document.getElementById("question").innerHTML = animals[index].questions[i].quest; 	
+			document.getElementById("guess").value = "";
+		}
+}
+function checkAnswer(){ 
+	var guess = document.getElementById("guess").value;
+	while(guess == "") { //??????
+		alert("Please enter a value into the text field. You can do it!");    
+		tryAgain(i--);  //i = currQuest
+		return;   
+	}          
+	guess = guess.toLowerCase(); 
+	var reveal = document.getElementById("reveal");
+	if(guess == animals[index].questions[i].answer) {
+		reveal.innerHTML = "Correct!"; 
+		reveal.style.visibility="visible";
+		score+=animals[index].questions[i].pointVal; 
+	}
+	else {
+		reveal.innerHTML = "Incorrect. <br/> The correct answer is " + animals[index].questions[i].answer + "."; 
+		reveal.style.visibility="visible";             
+	}
+
+}
+function tryAgain(currQuest) {
+	document.getElementById("question").innerHTML = animals[index].questions[currQuest].quest; 	
+	document.getElementById("guess").value = "";
+}
+function registerHandlers(){
+	// Register the handlers here
+	document.getElementById("start").onclick=showQuestion;
+	document.getElementById("nextQuestion").onclick=nextQuestion; 
+	document.getElementById("nextTopic").onclick=showQuestion;
+}
+function endTopic() {
+	var text = document.getElementById("reveal").innerHTML;
+	var reveal = document.getElementById("reveal");        
+	reveal.innerHTML = text + "<br/> <br/> Congratulations! Your total score is " + score + "."; 
+	totalScore += score; 
+	reveal.style.color = "red";
+	reveal.style.visibility="visible"; //??????????
+	document.getElementById("nextQuestion").style.visibility = "hidden";  
+}            
+
+</script>
+</head>
+<body onload="registerHandlers()" id="page-top" data-spy="scroll" data-target=".navbar-fixed-top"> 
+
+ <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="index.html#page-top">
+                    <i class="fa fa-play-circle"></i>  <span class="light">Home</span>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.html#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="registrationForm.html">Register</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.html#contact">Contact</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="catalog.php">Shop</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.html#activities">Activities</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>     
+<div id="wrapper">
+	<h1 style="padding-top:100px" id="subject">Animal Extravaganza</h1>
+	<button id="start" type="button" style="background-color:#1d9b6c">Start Quiz</button> 
+</div> 
+<div id="questionDiv" style="visibility:hidden">
+	<h2 align ="center" id="question"> </h2>            
+	<p align="center">
+	<img id="topicImg" src="" alt="topic image" width="300px" height="200px"> </p> 
+	<div id="inputBox">
+  		Take a guess:<br>
+  		<input id="guess" type="text" name="guess"><br></div>
+	<button id="nextQuestion" type="button"  style="visibility:hidden"> Next Question</button> 
+	<button id="nextTopic" type="button"  style="visibility:hidden"> Next Topic</button>
+	<h1 id="reveal" style="visibility:hidden"> did you get it right? </h1>
+</div>
+<footer>
+        <div class="container text-center">
+            <p>Copyright &copy; 2016 EdCamps, Inc.</p>
+        </div>
+    </footer>
+</body>
+</html>
+

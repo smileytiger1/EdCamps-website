@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/grayscale.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<title>Registration</title>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+
+
+  <!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+  <!--<script src="htps://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="http://code.jquery.com/jquery-latest.min.js"
+        type="text/javascript"></script>-->
+  <script type = "text/javascript">
+  $(document).ready(function() {
+    $("#datepicker").datepicker();
+  });
+  //duration-price calculation 
+  function genPrice(duration) {
+      totalCost = 600*duration;
+      document.getElementById("totalCost").innerHTML = "The total cost of the camp will be $" + totalCost + ".";
+      document.getElementById("totalCost").style.visibility = "visible";  
+  }
+
+  function validateForm() {
+  	//full name check
+  	var fullname = document.getElementById("fullname").value; 
+  	if(fullname == ""){ //check 1: field filled in 
+  		alert ("Please enter child's full name.");
+  		fullname.focus();
+  		return false;
+  	}
+	//date check
+	var date = $("#datepicker").datepicker('getDate');  
+  	if(date == ""){ //check 1: field filled in 
+  		alert ("Please enter child's date of birth.");
+  		date.focus();
+  		return false;
+  	}
+  	//check 2: field syntactically correct
+		if (date.getFullYear() < 2006 && date.getFullYear() > 2002){ //could rework to take into account months and start date of camp!!!!!
+			//alert ("Format  OK"); 
+			//return true;
+		}
+		else {
+			alert ("Child not within age of 10-14.  We apologize for any inconviences.");
+			date.focus();            
+			return false;
+		}
+	//parent names check
+  	var parentnames = document.getElementById("parentnames").value; 
+  	if(parentnames == ""){ //check 1: field filled in 
+  		alert ("Please enter parent(s) name(s).");
+  		parentnames.focus();
+  		return false;
+  	}
+	//email check (use in verifying 10% reg fee discount if multiple camps registered)
+	var email = document.getElementById("email").value; 
+  	if(email == ""){ //check 1: field filled in 
+  		alert ("Please enter email.");
+  		email.focus();   
+  		return false;
+  	}
+  	var formatPattern = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;  //check 2: field syntactically correct
+		if (email.match(formatPattern)){
+			//alert ("Format  OK"); 
+			//return true;
+		}
+		else {
+			alert ("Invalid email format.  Re-enter correctly.");
+			email.focus();            
+			return false;  
+		}
+	//phone check
+  	var phone = document.getElementById("phone").value; 
+  	if(phone == ""){ //check 1: field filled in 
+  		alert ("Please enter phone number.");
+  		phone.focus();
+  		return false;
+  	}
+  	var formatPattern = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;  //check 2: field syntactically correct
+		if (phone.match(formatPattern)){
+			//alert ("Format  OK"); 
+			//return true;
+		}
+		else {
+			alert ("Invalid Phone Format. Re-enter correctly.");
+			phone.focus();            
+			return false;
+		}
+    //card name check
+    var cardName = document.getElementById("cardName").value; 
+    if(cardName == ""){ //check 1: field filled in 
+      alert ("Please enter the name that appears on your card.");
+      cardName.focus();   
+      return false;
+    }
+    //card num check
+    var cardNum = document.getElementById("cardNum").value; 
+    if(cardNum == ""){ //check 1: field filled in 
+      alert ("Please enter card number.");
+      cardNum.focus();   
+      return false;
+    }
+    var formatPattern = /^\d{16}$/;  //check 2: field syntactically correct
+    if (cardNum.match(formatPattern)){
+      //alert ("Format  OK"); 
+      //return true;
+    }
+    else {
+      alert ("Invalid card number format.  Re-enter correctly.");
+      cardNum.focus();            
+      return false;  
+    }
+    //expiration date check
+    var expirDate = document.getElementById("expirDate").value; 
+    if(expirDate == ""){ //check 1: field filled in 
+      alert ("Please enter card expiration date.");
+      expirDate.focus();   
+      return false;
+    }
+    var formatPattern = /^(1[0-2]|0[1-9]|\d)\/(20\d{2}|19\d{2}|0(?!0)\d|[1-9]\d)$/;  //check 2: field syntactically correct
+    if (expirDate.match(formatPattern)){
+      //alert ("Format  OK"); 
+      //return true;
+    }
+    else {
+      alert ("Invalid card expiration date format.  Re-enter correctly.");
+      expirDate.focus();            
+      return false;  
+    }
+    //security code check
+    var secCode = document.getElementById("secCode").value; 
+    if(secCode == ""){ //check 1: field filled in 
+      alert ("Please enter card security code.");
+      secCode.focus();   
+      return false;
+    }
+    var formatPattern = /^[0-9]{3,4}$/;  //check 2: field syntactically correct
+    if (secCode.match(formatPattern)){
+      //alert ("Format  OK"); 
+      //return true;
+    }
+    else {
+      alert ("Invalid card security code format.  Re-enter correctly.");
+      secCode.focus();            
+      return false;  
+    }
+	//school check
+  	var school = document.getElementById("school").value; 
+  	if(school == ""){ //check 1: field filled in 
+  		alert ("Please enter child's school");
+  		school.focus();
+  		return false;
+  	}
+  	else {
+  		sendForm();
+  	}
+  }
+  function sendForm(){
+  	//alert("hey you");
+  	document.regForm.submit(); 
+  }
+
+  </script>
+  <style>
+
+  	#specialAccoms{
+  		width: 325px; 
+  		height: 100px; 
+  		padding-top: 0;
+      padding-left: 0;
+  	}
+    #totalCost{
+      visibility: visible;
+      color:red; 
+    }
+    #submitBtn:hover{
+      background:#1d9b6c;
+      color:white;
+    }
+    input{
+      color:black;
+    }
+    .ui-datepicker {
+    background: #333;
+   color: #EEE;
+}
+  </style>
+</head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top"> 
+
+ <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="index.html#page-top">
+                    <i class="fa fa-play-circle"></i>  <span class="light">Home</span>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse" style="background-color:rgba(0,0,0,.99)">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.html#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="registrationForm.html">Register</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.html#contact">Contact</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="catalog.php">Shop</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.html#activities">Activities</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav> 
+<svg height="100" width="20"></svg>
+<form name="regForm" align="center" method="post" action="registration_handling.php">
+  <strong> Applicant's (child's) full name:</strong><br>
+  <input type="text" name="fullname" id="fullname" autocomplete="off">
+  <br> <br>
+
+  <strong>Date of birth: </strong><br>
+  <input name ="datepicker" id="datepicker" autocomplete="off" style="color:black"><br> <br>
+
+  <strong>Name(s) of parent(s):</strong><br>
+  <input type="text" name="parentnames" id="parentnames" autocomplete="off"><br> <br>
+
+  <strong>Parent's contact email:</strong><br>
+  <input type="text" name="email" id="email" autocomplete="off">
+  <br> <br>
+
+  <strong>Parent's contact phone:</strong><br>
+  <input type="text" name="phone" id="phone" autocomplete="off">
+  <br> <br>
+
+  <strong>Grade level:</strong><br>
+  <input type="radio" name="grade" value="4" checked> 4th<br>
+  <input type="radio" name="grade" value="5"> 5th<br>
+  <input type="radio" name="grade" value="6"> 6th<br>
+  <input type="radio" name="grade" value="7"> 7th<br>
+  <input type="radio" name="grade" value="8"> 8th<br>
+  <input type="radio" name="grade" value="9"> 9th<br>
+  <input type="radio" name="grade" value="other" > Other<br> <br>
+
+  <strong>School:</strong><br>
+  <input type="text" name="school" id="school" autocomplete="off">
+  <br> <br>
+
+  <strong>Special accomodation (allergies, dietary, etc. needs):</strong><br>
+  <input type="text" name="accomodations" id="specialAccoms" autocomplete="off"> 
+  <br> <br>
+
+  <strong>Camp location: </strong><br>
+  <input type="radio" name="location" value="Santa Clara" checked> Santa Clara<br>
+  <input type="radio" name="location" value="Monterey"> Monterey<br>
+  <input type="radio" name="location" value="Palo Alto"> Palo Alto<br>
+  <input type="radio" name="location" value="San Francisco"> San Francisco<br>
+  <br>
+
+  <strong>Camp duration:</strong><br>
+  <input type="radio" name="duration" value="1" onclick="genPrice(1)" checked> 1 week<br>
+  <input type="radio" name="duration" value="2" onclick="genPrice(2)"> 2 weeks<br> 
+  <p id="totalCost"> The total cost of the camp will be $600. </p>
+
+  <div>
+  <strong>Secure payment information:</strong><br>
+  <em> Card type: </em><br>
+  <input type="radio" name="cardType" value="Visa, MasterCard, AMEX, or Discover" checked> <img src="othercards.jpg" width="150px"> <br>
+  <input type="radio" name="cardType" value="PayPal"> <img src="pp.jpg" width="40px"> <br><br>
+  <em>Name (as it appears on your card): </em><input type="text" name="cardName" id="cardName" autocomplete="off"><br><br>
+  <em>Card number (no dashes or spaces): </em><input type="password" name="cardNum" id="cardNum" autocomplete="off">
+  <em>Expires (mm/yyyy): </em><input type="text" name="expirDate" id="expirDate" autocomplete="off">
+  <em>Security code: </em><input type="password" name="secCode" id="secCode" style="width:50px" autocomplete="off"><br><br>
+</div>
+
+  <input id="submitBtn" type="button" name="submitBtn" value="Submit" onclick="validateForm()" style="color:black">
+</form>
+<footer>
+        <div class="container text-center">
+            <p>Copyright &copy; 2016 EdCamps, Inc.</p>
+        </div>
+    </footer>
+</body>
+</html>

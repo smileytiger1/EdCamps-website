@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+<meta charset="utf-8"/>
+<title></title>
+<!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/grayscale.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<style>
+
+	#topic{
+		text-align:center;
+		padding-top:30px;
+	}
+
+	#que{
+
+		display:none;
+	}
+
+</style>
+<script src="jsquizquestions.js"></script>
+<script>
+var qind = 0;
+var ind2 = 0;
+var crtpc;
+var correct = 0;
+var tpcnt = 0;
+var qcnt = 0;
+var tpdp = true;
+function showQuestion(){	
+	if(tpdp)
+	{
+		// Randomly select a topic from the subject array
+		ind2 = Math.floor(Math.random()*3);
+		crtpc = gnr[ind2];
+
+			// Change the title and button labels
+		document.getElementById("topic").innerHTML = crtpc.image;
+		document.getElementById("start").innerHTML = "Next Topic";
+			// Display the question
+		document.getElementById("quetxt").innerHTML = crtpc.questions[qind].quest;
+			// Make the display area of the image and question visible
+		document.getElementById("que").style.display = 'block';
+		tpdp = false;
+	}
+	else
+	{
+		ind2++;
+		tpcnt++;
+		if(ind2 > 3)
+		{
+			ind2 = 0;
+		}
+		if(tpcnt > 3)
+		{
+			endQ();
+		}
+		qind = 0;
+		crtpc = gnr[ind2];
+		document.getElementById("quetxt").innerHTML = crtpc.questions[qind].quest;
+		document.getElementById("topic").innerHTML = crtpc.image;
+	}
+}
+function nextQuestion(){
+		// Show the next question on the current topic
+	if(document.getElementById("ansbox").value == "")
+	{
+		alert("You need to give an answer.");
+		return;
+	}
+	checkAnswer();
+	qind++;
+	if(qind > 3)
+	{
+		ind2++;
+		if(ind2 > 3)
+		{
+			ind2 = 0;
+		}
+		nextTopic();
+		qind = 0;
+		if(tpcnt > 3)
+		{
+			endQ();
+		}
+	}
+	document.getElementById("quetxt").innerHTML = crtpc.questions[qind].quest;
+}
+function nextTopic(){
+	crtpc = gnr[ind2];
+	tpcnt++;
+}
+function checkAnswer(){
+		// Get the user input from the text field and compare it with the 
+		// correct answer in the data array
+	qcnt++;
+	var ans = document.getElementById("ansbox").value;
+	var cor = crtpc.questions[qind].answer;
+	cor = cor.toLowerCase();
+	if(ans == crtpc.questions[qind].answer)
+	{
+		correct++;
+	}
+	alert("Your Answer: "+ans+"\n Correct Answer: " +cor);
+}
+
+function endQ(){
+	alert("Quiz Over. \n You got "+correct+"/"+qcnt+" answers correct.");
+	document.getElementById("que").style.display = "none";
+}
+function registerHandlers(){
+	// Register the handlers here
+	document.getElementById("start").onclick = showQuestion;
+	document.getElementById("nxtque").onclick = nextQuestion;
+}
+
+</script>
+<title>Are you a Javascript Genius?</title>
+</head>
+<body onload="registerHandlers()" id="page-top" data-spy="scroll" data-target=".navbar-fixed-top"> 
+
+ <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="index.html#page-top">
+                    <i class="fa fa-play-circle"></i>  <span class="light">Home</span>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.html#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="registrationForm.html">Register</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.html#contact">Contact</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="catalog.php">Shop</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.html#activities">Activities</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>     
+	<h1 style="padding-top:100px" id="topic">JavaScipt Quiz</h1>
+	<div id="que">
+			<div id="quetxt"></div>
+			<input id="ansbox" type="text" style="color:black"/>
+			<button id="nxtque" style="background-color:#1d9b6c">Next Question</button>
+	</div>
+	<br/> <br/><br/><br/><br/>
+	<button id="start" style="background-color:#1d9b6c">Start Quiz</button>
+
+	<footer>
+        <div class="container text-center">
+            <p>Copyright &copy; 2016 EdCamps, Inc.</p>
+        </div>
+    </footer>
+</body>
+</html>
+

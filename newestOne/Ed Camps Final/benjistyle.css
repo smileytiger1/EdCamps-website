@@ -1,0 +1,44 @@
+body{
+			font-family:Verdana;
+		}
+		h1{
+			font-family:Verdana;
+			font-weight:bold;
+			color:White;
+		}
+		ul{
+			list-style-type:none;
+			margin:0;
+			padding:0;
+			overflow: hidden;
+			background-color: Black;
+		}
+		li span{
+			float:left;
+			display: block;
+			color: white;
+			text-align:center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+		li span:hover{
+			background-color: #333;
+		}
+		li a{
+			color: white;
+			text-decoration: none;
+		}
+		p{
+			margin:20px;
+		}
+		figcaption{
+			margin-left:-20px;
+		}
+		body{
+			background-color: Black; color: White; font-family:Verdana;
+		}
+		span img{
+			padding:1px;
+			border:1px solid #ffffff;
+			margin-left:-20px;
+		}

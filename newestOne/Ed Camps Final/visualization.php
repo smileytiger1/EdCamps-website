@@ -1,0 +1,132 @@
+<?php 
+	session_start();// Start the session before you write your HTML page
+function checkdisc(){
+ini_set('display_errors','On');
+error_reporting(E_ALL);
+$db_host = "dbserver.engr.scu.edu";
+$db_user = "esmith";
+$db_pass = "00001045653";
+$db_name = "sdb_esmith";
+
+
+$con = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+// Check connection
+if (mysqli_connect_errno())
+  {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  }
+
+
+else{
+  $sql="SELECT Location FROM Registration";
+  global $sf;
+	$sf = 0;
+  global $sc;
+	$sc= 0;
+  global $my;
+	$my = 0;
+  global $pa;
+	$pa = 0;
+  $result = $con->query($sql);
+  while($row = mysqli_fetch_array($result))
+  {
+	if($row['Location']=="San Francisco")
+		$sf = $sf+1;
+	else if($row['Location']=="Santa Clara")
+		$sc = $sc+1;
+	else if($row['Location']=="Monterey")
+		$my = $my+1;
+	else if($row['Location']=="Palo Alto")
+		$pa = $pa+1;
+  }
+}
+}
+checkdisc();
+?>
+
+
+<html xmlns = "http://www.w3.org/1999/xhtml">
+<head>
+	<title>Enrollment Data</title>
+	<!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/grayscale.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+</head>
+<body link="green" vlink="red" id="page-top" data-spy="scroll" data-target=".navbar-fixed-top"> 
+
+ <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="index.html#page-top">
+                    <i class="fa fa-play-circle"></i>  <span class="light">Home</span>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.html#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="registrationForm.html">Register</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.html#contact">Contact</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="catalog.php">Shop</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.html#activities">Activities</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+<svg height="100" width="5"> </svg>
+<h1 style="color:white" align="center"> Current Enrollment Numbers by Location</h1>
+
+<svg style="margin:auto" height="600" width="1000">
+	<rect fill="#006600" x="100" y="50" height="75" <?php global $sf; $sf=$sf*150; echo "width=\""."$sf"."\""; ?> />
+	<text fill="white" x="0" y="100">San Francisco</text>
+
+	<rect fill="#00e600" x="100" y="150" height="75" <?php global $sc; $sc=$sc*150; echo "width=\""."$sc"."\""; ?> />
+	<text fill="white" x="0" y="200">Santa Clara</text>
+
+	<rect fill="#669900" x="100" y="250" height="75" <?php global $my; $my=$my*150; echo "width=\""."$my"."\""; ?> />
+	<text fill="white" x="0" y="300">Monterey</text>	
+
+	<rect fill="#bbff33" x="100" y="350" height="75" <?php global $pa; $pa=$pa*150; echo "width=\""."$pa"."\""; ?> />
+	<text fill="white" x="0" y="400">Palo Alto</text>	
+</svg>
+<br/>
+	<a href="index.html">Return To Home</a>
+	<footer>
+        <div class="container text-center">
+            <p>Copyright &copy; 2016 EdCamps, Inc.</p>
+        </div>
+    </footer>
+</body>
+</html>

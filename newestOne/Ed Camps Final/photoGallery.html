@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/grayscale.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <style>
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 70%;
+      margin: auto;
+  }
+  h1{
+    font-size: 1.5em;
+  }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <br>
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>    
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+      <li data-target="#myCarousel" data-slide-to="3"></li>
+      <li data-target="#myCarousel" data-slide-to="4"></li>
+      <li data-target="#myCarousel" data-slide-to="5"></li>
+      <li data-target="#myCarousel" data-slide-to="6"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox"> 
+      <div class="item active">
+        <h1 align="center"> An alumni preparing a guest lecture on Compilers. </h1>
+        <img src="casa1.JPG" alt="Chania" style="width:350px;height:200;">
+      </div>
+
+      <div class="item">
+        <h1 align="center"> Break time! Let's play Call of Duty. </h1>
+        <img src="casa2.JPG" alt="Chania" style="width:350px;height:200;">
+      </div>
+    
+      <div class="item">
+        <h1 align="center"> A group of young campers watching intently as they play the game they just coded. </h1>
+        <img src="casa3.JPG" alt="Flower" style="width:350px;height:200;">
+      </div>
+
+      <div class="item">
+        <h1 align="center"> Two kids trying their hand at debugging. </h1>
+        <img src="casa5.jpg" alt="Flower" style="width:330px;height:170;">
+      </div>
+
+      <div class="item">
+        <h1 align="center"> A few of our campers, intently studying the rules of /^Regex$/. </h1>
+        <img src="casa6.JPG" alt="Flower" style="width="320";height:580;">
+      </div>
+
+      <div class="item">
+        <h1 align="center"> Camp counselor resting after a long fieldtrip to the beach. </h1>
+        <img src="casa7.JPG" alt="Flower" style="width:260px;">
+      </div>
+
+      <div class="item">
+        <h1 align="center"> Two young boys experience joy when they finally connect to their MySQL database! </h1>
+        <img src="casa8.JPG" alt="Flower" style="width:260px;height:100;">
+      </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+<footer>
+        <div class="container text-center">
+            <p>Copyright &copy; 2016 EdCamps, Inc.</p>
+        </div>
+    </footer>
+</body>
+</html>
+
+
